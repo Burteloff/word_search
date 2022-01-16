@@ -13,3 +13,9 @@ with open(file_name,'r',encoding='utf8') as file: #открываем файли
                 one_letter[prev_char]={char:1}
             prev_char=char
 stats2={}
+
+
+word_zero=input("Введите букву: ") #Вводим первую букву из, которого составится слово
+
+print(one_letter)
+#word_second=
