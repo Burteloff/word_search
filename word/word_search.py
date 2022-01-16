@@ -22,6 +22,6 @@ def max_char(keys): #Ищет максимально встречаемый си
             max_char=key
     return max_char
 word_zero=input("Введите букву: ") #Вводим первую букву из, которого составится слово
-
+word_second = max_char(one_letter[word_zero]) #слово с двумя буквами, вторая наиболее часто встречаемая
 print(one_letter)
 #word_second=
