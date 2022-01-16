@@ -13,8 +13,14 @@ with open(file_name,'r',encoding='utf8') as file: #открываем файли
                 one_letter[prev_char]={char:1}
             prev_char=char
 stats2={}
-
-
+def max_char(keys): #Ищет максимально встречаемый символ
+    max_count=0 #максимальный в данный момент
+    max_char= ''
+    for key in keys:
+        if((keys[key])>max_count): #поиск максимального
+            max_count=keys[key]
+            max_char=key
+    return max_char
 word_zero=input("Введите букву: ") #Вводим первую букву из, которого составится слово
 
 print(one_letter)
