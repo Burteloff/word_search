@@ -85,3 +85,4 @@ while True:
         break
     count_sym+=1
 print(word_second)
+#
