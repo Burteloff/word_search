@@ -16,10 +16,13 @@ with open(file_name,'r',encoding='utf8') as file: #открываем файли
 def max_char(keys): #Ищет максимально встречаемый символ
     max_count=0 #максимальный в данный момент
     max_char= ''
+    slash='\\n'
     for key in keys:
-        if((keys[key])>max_count): #поиск максимального
+        if((keys[key])>max_count and key!=slash): #поиск максимального
+
             max_count=keys[key]
             max_char=key
+    max_char=fr'{max_char}'
     return max_char
 def check_partline(current_word, current_line, ne, count): #Проверка, подходит ли линия
     n=1
@@ -41,30 +44,49 @@ def word_search(current_word, count_sym): #поиск слова
         for line in file:
             count_char_line = 0
             for char in line:
+                n=1
                 if(current_word[0]==char):
+
                     while n < count_sym:
+                        n += 1
                         if (count_char_line != len(line) - (count_sym - 1)):
                             if(check_partline(current_word, line, count_sym, count_char_line)==True):
                                 line1_cur=line[count_char_line + count_sym]
-                                word= str(current_word) + line1_cur
-                                if (current_word not in more_letter):
-                                    more_letter[current_word] ={word:1}
-                                else:
-                                    if(word in more_letter[current_word]):
-                                        more_letter[current_word][word]+=1
+                                if(line1_cur!='\n'):
+                                    word= str(current_word) + line1_cur
+                                    if (current_word not in more_letter):
+                                        more_letter[current_word] ={word:1}
                                     else:
-                                        more_letter[current_word][word]=1
+                                        if(word in more_letter[current_word]):
+                                            more_letter[current_word][word]+=1
+                                        else:
+                                            more_letter[current_word][word]=1
+                                else:
+                                    break
 
                 count_char_line+=1
 
-    new_word=max_char(more_letter[current_word])
-
+    if(current_word in more_letter):
+        new_word=max_char(more_letter[current_word])
+    else: new_word=current_word
     more_letter.clear()
     return new_word
-
+count_sym=2
 more_letter={}
 word_zero=input("Введите букву: ") #Вводим первую букву из, которого составится слово
 word_second = word_zero+max_char(one_letter[word_zero]) #слово с двумя буквами, вторая наиболее часто встречаемая
 while True:
-    word_more = word_search(word2, ne)
+    word_more = word_search(word_second, count_sym)
+    word_second=word_more
+
+    if (count_sym >= len(word_more)):
+        break
+    len_word = len(word_more) - 1
+    slash=r'\\'
+    if (word_more[len_word] == ' ' or word_more[len_word]==slash):
+        word_True = False
+        print('break')
+        break
+    count_sym+=1
+print(word_second)
 #word_second=
