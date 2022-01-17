@@ -13,7 +13,29 @@ with open(file_name,'r',encoding='utf8') as file: #открываем файли
                 one_letter[prev_char]={char:1}
             prev_char=char
 
-
+def max_char(keys): #Ищет максимально встречаемый символ
+    max_count=0 #максимальный в данный момент
+    max_char= ''
+    for key in keys:
+        if((keys[key])>max_count): #поиск максимального
+            max_count=keys[key]
+            max_char=key
+    return max_char
+def check_partline(current_word, current_line, ne, count): #Проверка, подходит ли линия
+    n=1
+    len_line=len(current_line)
+    isDesiredText=True #bool, подходит ли часть текста моему тексту
+    while n<=ne-1:
+        count1=count+n<len_line-1
+        count2=len(current_word)
+        if((count1 and n<count2+1)==True):
+            line2=current_line[count + n - 1]
+            w=current_word[n - 1]
+            if(line2!=w):
+                isDesiredText=False
+        else: isDesiredText=False
+        n += 1
+    return isDesiredText
 def word_search(current_word, count_sym): #поиск слова
     with open(file_name, 'r', encoding='utf8') as file:
         for line in file:
