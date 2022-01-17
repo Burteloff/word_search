@@ -1,18 +1,3 @@
-file_name=input("Введите название файла Пример: text.txt\n") #название файла
-one_letter={} #словарь из, которого вытягиваем одну букву и последующую за ним
-prev_char='' #первый символ для поиска в словаре
-with open(file_name,'r',encoding='utf8') as file: #открываем файлик и добавляем символ + символ последующий за ним в словарь stat
-    for line in file:
-        for char in line:
-            if prev_char in one_letter:
-                if char in one_letter[prev_char]:
-                    one_letter[prev_char][char]+=1
-                else:
-                    one_letter[prev_char][char]=1
-            else:
-                one_letter[prev_char]={char:1}
-            prev_char=char
-
 def max_char(keys): #Ищет максимально встречаемый символ
     max_count=0 #максимальный в данный момент
     max_char= ''
@@ -46,7 +31,6 @@ def word_search(current_word, count_sym): #поиск слова
             for char in line:
                 n=1
                 if(current_word[0]==char):
-
                     while n < count_sym:
                         n += 1
                         if (count_char_line != len(line) - (count_sym - 1)):
@@ -65,12 +49,25 @@ def word_search(current_word, count_sym): #поиск слова
                                     break
 
                 count_char_line+=1
-
     if(current_word in more_letter):
         new_word=max_char(more_letter[current_word])
     else: new_word=current_word
     more_letter.clear()
     return new_word
+file_name=input("Введите название файла Пример: text.txt\n") #название файла
+one_letter={} #словарь из, которого вытягиваем одну букву и последующую за ним
+prev_char='' #первый символ для поиска в словаре
+with open(file_name,'r',encoding='utf8') as file: #открываем файлик и добавляем символ + символ последующий за ним в словарь stat
+    for line in file:
+        for char in line:
+            if prev_char in one_letter:
+                if char in one_letter[prev_char]:
+                    one_letter[prev_char][char]+=1
+                else:
+                    one_letter[prev_char][char]=1
+            else:
+                one_letter[prev_char]={char:1}
+            prev_char=char
 count_sym=2
 more_letter={}
 word_zero=input("Введите букву: ") #Вводим первую букву из, которого составится слово
@@ -78,7 +75,6 @@ word_second = word_zero+max_char(one_letter[word_zero]) #слово с двум�
 while True:
     word_more = word_search(word_second, count_sym)
     word_second=word_more
-
     if (count_sym >= len(word_more)):
         break
     len_word = len(word_more) - 1
@@ -89,4 +85,3 @@ while True:
         break
     count_sym+=1
 print(word_second)
-#word_second=
